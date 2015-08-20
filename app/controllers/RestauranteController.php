@@ -9,77 +9,29 @@ class RestauranteController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$pedidos = Pedidos::All();
+		$detalles = Pedidos::consulta()->get();
+	
+		return View::make('Restaurante.hogar',compact('pedidos','detalles'));
 	}
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+	public function hogarPedidos(){
+		
+		$pedido = Pedidos::find(Input::get('idpedido'));
+		if(Input::has('Confirmar'))
+		{
+			$pedido->estatus = 'confirmada';
+			$pedido->save();
+			return Redirect::to('/');
 
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+		}
+		elseif (Input::has('Declinar')) 
+		{
+			$pedido->estatus = 'declinada';
+			$pedido->save();
+			return Redirect::to('/');
+		}
 	}
 
 
