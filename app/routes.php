@@ -13,4 +13,10 @@
 
 
 Route::get('/','RestauranteController@index');
+Route::get('/restaurante/alimentos','RestauranteController@alimentos');
+Route::get('/restaurante/bebidas','RestauranteController@bebidas');
+Route::get('/restaurante/pedidos','RestauranteController@pedidos');
+Route::get('/restaurante/informes','RestauranteController@informes');
+Route::get('/restaurante/datos','RestauranteController@datos');
+Route::post('/restaurante/editar','RestauranteController@editar');
 Route::post('condec','RestauranteController@hogarPedidos');
