@@ -8,7 +8,18 @@
 <body>
 	  <div class="container marg">
     <div class="panel panel-default">
+     @if($errors->has())
+   @foreach ($errors->all() as $error)
+      <div><small class="error">{{ $error }}</small></div>
+  @endforeach
+@endif
+@if(Session::has('success'))
+    <div class="alert-box">
+       <p> {{ Session::get('success') }}</p>
+    </div>
+@endif
      <div class="panel-heading">&nbsp;</div>
+
      @if(count($pedidos)>0)
     	
      		<table class="table table-bordered table-striped">

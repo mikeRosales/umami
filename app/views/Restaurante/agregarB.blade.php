@@ -8,24 +8,37 @@
 <body>
 	  <div class="container marg">
     <div class="panel panel-default">
-     <div class="panel-heading"><h4>Editar</h4></div>     
+     <div class="panel-heading"><h4>Agregar Bebida</h4></div>     
 		<div class="container">
-		{{Form::open(array('url'=>'/restaurante/saveChanges','files'=>'true'))}}
-			<div class="col-md-6">
+		{{Form::open(array('url'=>'/restaurante/addB','files'=>'true'))}}
+			<div class="col-md-6" style="height:50%;">
 				<br>
-			     <img id="blah" style="width:100%;" src="{{asset($producto->imagen)}}" alt="your image" />
+			     <img id="blah" style="width:100%;"  src="" />
 				<input type="file" name="imgFile" id="imgFile" value="">
 					
 			</div>
 			<br>
 			<div class="col-md-3">
-			<input type="text" name="nombre" value="{{$producto->nombre}}">
-			<textarea name="descripcion" id=""  rows="10">{{$producto->descripcion}}</textarea>
+			<label>Nombre</label>
+			<input type="text" name="nombre" value="">
+			<label>Descripción</label>
+			<textarea name="descripcion" id=""  rows="10"></textarea>
+				  <label>Categoria  </label>
+	          <select name="categoria">
+	            <option value="fria">Fria</option>
+	            <option value="caliente">Caliente</option>	            
+         	 </select>
+         	 <br>
+         	 <label>Sabor  </label>
+	          <select name="sabor">
+	            <option value="salado">Salado</option>
+	            <option value="dulce">Dulce</option>	            
+         	 </select>
 			</div>
 			<div class="col-md-3">
 				<label >Precio</label>
 				<br>
-				<input name="precio" value="{{$producto->precio}}" type="text">
+				<input name="precio" value="" type="text">
 				<br>
 				<label >Costo por transacción</label>
 				<br>
@@ -37,12 +50,12 @@
 				<br>
 				<label for="">Precio final</label>
 				<br>
-				<input name="precio_final"  value="{{$producto->precio}}" type="text">
+				<input name="precio_final"  value="" type="text">
 				<br>
-				<label for="">Horario</label> <input  value="{{$producto->horario }}" name="horario" type="text">
+				<label for="">Horario</label> <input  value="" name="horario" type="text">
 				<br>
 				<br>
-				<input type="hidden" name="id" value="{{$producto->id}}">
+				<input type="hidden" name="id" value="">
 			{{Form::submit('Guardar cambios',array('class'=>'btn btn-primary'))}}
 			</div>
 

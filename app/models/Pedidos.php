@@ -29,4 +29,41 @@ class Pedidos extends Eloquent
 					return $query;
 		
 	}
+	public function scopeVT(){
+		$VT =DB::table('pedidos')
+		->where('pedidos.estatus','=','confirmada')
+		->sum('pedidos.total');
+
+		return $VT;
+	}
+	public function scopeImporte(){
+		
+	}
+	public function scopeIVA(){
+		
+	}
+	public function scopeNuOrdenes(){
+			$NuOrdenes =DB::table('pedidos')
+		->where('pedidos.estatus','=','confirmada')
+		->count();
+		return $NuOrdenes;
+	}
+	public function scopeOM(){
+		$OM =DB::table('pedidos')
+		->where('pedidos.estatus','=','confirmada')
+		->min('pedidos.total');
+		return $OM;
+	}
+	public function scopeMO(){
+			$MO =DB::table('pedidos')
+		->where('pedidos.estatus','=','confirmada')
+		->max('pedidos.total');
+		return $MO;
+	}
+	public function scopeOP(){
+		$OP =DB::table('pedidos')
+		->where('pedidos.estatus','=','confirmada')
+		->avg('pedidos.total');
+		return $OP;
+	}
 }

@@ -11,7 +11,10 @@
      <div class="panel-heading">&nbsp;</div>     
 	<div class="container col-height">
 	<br>
+
+	<a href="/restaurante/agregarB"><img class="buttonagregar" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar Bebidas</a>
 			@if(count($bebidas)>0)
+			<div class="col-md-12">
 	 			@foreach($bebidas as $key => $value)
 					<div class="col-md-5" style="border:1px solid; height:20%; margin:1%;" >
 						
@@ -40,6 +43,7 @@
 						
 					</div>
 				@endforeach
+				</div>
 			@endif
 			
 	</div>

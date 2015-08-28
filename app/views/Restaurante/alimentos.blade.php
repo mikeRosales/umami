@@ -6,11 +6,14 @@
 	<title>Document</title>
 </head>
 <body>
+
 	  <div class="container marg">
     <div class="panel panel-default">
      <div class="panel-heading"><h4>Alimentos</h4></div>     
+
 	<div class="container">
 	<br>
+	<a href="/restaurante/agregarA"><img class="buttonagregar" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar Alimento</a>
 	@if(count($alimentos)>0)
 	<div class="col-md-12">
 	 	@foreach($alimentos as $key => $value)
