@@ -252,7 +252,7 @@
 	}
 }
 .login {
-	background: url(../../img/login.png);
+	background: url(../img/Tasty.png);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: top left
@@ -7139,6 +7139,7 @@ c
 	left: 0;
 	height: 200px;
 	width: 60%;
+
 }
 
 @media (min-width:768px) {

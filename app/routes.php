@@ -38,7 +38,9 @@ Route::post('users/login', function()
     }
 });
 
+
 Route::post('/users/pedidos', 'UserController@pedidos');
+Route::post('/users/reservaciones', 'UserController@reservaciones');
 Route::post('/users/tarjeta', 'UserController@tarjeta');
 Route::get('/users/alimentos','UserController@alimentos');
 Route::get('/users/bebidas','UserController@bebidas');
@@ -46,7 +48,15 @@ Route::post('/users/platilloEsp','UserController@platilloEsp');
 Route::post('/users/addAlim','UserController@addPlatillo');
 Route::get('/users/restaurantes','UserController@restaurantes');
 Route::post('/users/factura','UserController@factura');
+Route::post('/users/categorias','UserController@categorias');
+Route::post('/users/tarjetas','UserController@tarjetas');
+Route::post('/users/modTarjetas','UserController@modTarjetas');
+Route::post('/users/modFacturas','UserController@modFacturas');
+Route::post('/users/valoracion','UserController@valoracion');
+Route::post('/users/tarjetasP','UserController@tarjetasP');
+Route::post('/users/facturasP','UserController@facturasP');
 Route::resource('/users/payment', 'UserController@payment');
+Route::resource('/users/publicidad', 'UserController@getPubli');
 
 
 
@@ -86,4 +96,7 @@ Route::get('/admin/candidatos','AdminController@candidatos');
 Route::get('/admin/{id}/candidato','AdminController@candidato');
 Route::post('/admin/validar','AdminController@validar');
 Route::post('/admin/borrar_candidato','AdminController@borrar_candidato');
+Route::get('/admin/categorias','AdminController@categorias');
+Route::post('/admin/activar','AdminController@activar');
+Route::post('/admin/publicidad','AdminController@publicar');
 });

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Alimentos</title>
 </head>
 <body>
 
@@ -11,25 +11,24 @@
     <div class="panel panel-default">
      <div class="panel-heading rest"><h4>{{ Session::get("nombre") }} Seccion:Alimentos</h4></div>     
 
-	<div class="container">
+	<div class="panel-body">
 	<br>
 	<a href="/restaurante/agregarA"><img class="buttonagregar" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar Alimento</a>
 	@if(count($alimentos)>0)
-	<div class="col-md-12">
+	<div class="row">
 	 	@foreach($alimentos as $key => $value)
-				<div class="col-md-5" style="border:1px solid; height:20%; margin:1%;" >
+				<div class="col-md-5" style="border:1px solid;  margin:1%;" >
 						
-							<div class="col-md-5">
-								<img style="width:100%; margin:10%;"src="{{asset($value->imagen)}}">
+							<div class="col-md-7 ">
+								<img style="width:100%;margin:5%;" height="200px" src="{{asset($value->imagen)}}">
 							</div>
-							<div class="col-md-5">
+							<div class="col-md-3">
 							<br>	
 								{{$value->nombre}} 	<br>
 								{{$value->descripcion}}
 								
 							</div>
-							<br>
-							<br>
+							<br/>
 							<div class="col-md-2">
 								{{$value->precio}}$
 								<br> 

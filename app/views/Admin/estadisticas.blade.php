@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Estadisticas</title>
 </head>
 <body>
 
@@ -22,19 +22,14 @@
           <th>Consultas</th>
           <th>Comisión</th>          
           <th>Total a depositar</th> 
+           <th>Numero de cuenta</th>
           <th></th>
      </thead>
      <tbody>
  
      <tr>
-     	<td>Mi restaurante</td>
-     	<td>3</td>
-     	<td>$150</td>
-     	<td>6</td>
-          <td>2</td>
-          <td>$20</td>
-          <td>$2000</td>
-          <td><button class="btn btn-primary">Pagar</button></td>
+     
+     
           
      	
      </tr>

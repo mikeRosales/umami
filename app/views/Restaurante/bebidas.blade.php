@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Bebidas</title>
 </head>
 <body>
 	  <div class="container marg">
@@ -13,22 +13,21 @@
 	<br>
 
 	<a href="/restaurante/agregarB"><img class="buttonagregar" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar Bebidas</a>
-			@if(count($bebidas)>0)
-			<div class="col-md-12">
-	 			@foreach($bebidas as $key => $value)
-					<div class="col-md-5" style="border:1px solid; height:20%; margin:1%;" >
+		@if(count($bebidas)>0)
+	<div class="row">
+	 	@foreach($bebidas as $key => $value)
+				<div class="col-md-5" style="border:1px solid;  margin:1%;" >
 						
-							<div class="col-md-5">
-								<img style="width:100%; height:80%; margin:10%;"src="{{asset($value->imagen)}}">
+							<div class="col-md-7 ">
+								<img style="width:100%;margin:5%;" height="200px" src="{{asset($value->imagen)}}">
 							</div>
-							<div class="col-md-5">
+							<div class="col-md-3">
 							<br>	
 								{{$value->nombre}} 	<br>
 								{{$value->descripcion}}
 								
 							</div>
-							<br>
-							<br>
+							<br/>
 							<div class="col-md-2">
 								{{$value->precio}}$
 								<br> 
@@ -42,9 +41,9 @@
 								
 						
 					</div>
-				@endforeach
-				</div>
-			@endif
+		@endforeach
+		</div>
+	@endif
 			
 	</div>
 

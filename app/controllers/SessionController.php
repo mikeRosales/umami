@@ -12,13 +12,14 @@ class SessionController extends \BaseController {
 			$nivel=Auth::user()->id_nivel;
 			
 			
-			Session::put('nombre',Restaurantes::find(Auth::user()->id_restaurante)->nombre);
-			Session::put('id',Auth::user()->id);
+			
 			
 			if ($nivel=='1') {
 				return Redirect::action('AdminController@pedidos');
 			}else{
 				if ($nivel=='2') {
+					Session::put('nombre',Restaurantes::find(Auth::user()->id_restaurante)->nombre);
+					Session::put('id',Auth::user()->id);
 					return Redirect::action('RestauranteController@index');
 				}
 			}
@@ -41,6 +42,7 @@ class SessionController extends \BaseController {
 	//vista para nueva empresa
 	public function index()
 	{
+		
 		if (Auth::check()) {
 			$nivel=Auth::user()->id_nivel;
 	

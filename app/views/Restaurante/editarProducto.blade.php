@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Editar</title>
 </head>
 <body>
 	  <div class="container marg">
     <div class="panel panel-default">
      <div class="panel-heading rest"><h4>{{ Session::get("nombre") }} Seccion:Editar</h4></div>     
-		<div class="container">
+		<div class="panel-body">
 		{{Form::open(array('url'=>'/restaurante/saveChanges','files'=>'true'))}}
 			<div class="col-md-6">
 				<br>
@@ -21,6 +21,10 @@
 			<div class="col-md-3">
 			<input type="text" name="nombre" value="{{$producto->nombre}}">
 			<textarea name="descripcion" id=""  rows="10">{{$producto->descripcion}}</textarea>
+			  <label>Categoria  </label>
+	          {{ Form::select('categoria', (['0' => 'Elija una categoria'] + $categorias), null,['class' => 'form-control']) }}
+         	 <br>         	
+	      
 			</div>
 			<div class="col-md-3">
 				<label >Precio</label>
@@ -33,13 +37,20 @@
 				<br>
 				<label for="">Comisión</label>
 				<br>
-				<input name="comision"  type="text">
+				<input name="comision" value="2.5" type="text">
 				<br>
 				<label for="">Precio final</label>
 				<br>
-				<input name="precio_final"  value="{{$producto->precio}}" type="text">
-				<br>
-				<label for="">Horario</label> <input  value="{{$producto->horario }}" name="horario" type="text">
+				<input name="precio_final"  value="" type="text">
+				<br>				
+		         {{ Form::label('hora_inicio', 'hora a la que se comienza a preparar') }}
+		         <br>
+		         {{ Form::text('hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00')) }}
+		    	<br/>
+		    
+		         {{ Form::label('hora_fin', 'hora a la que se deja de preparar') }}
+		         <br>
+		         {{ Form::text('hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00')) }}
 				<br>
 				<br>
 				<input type="hidden" name="id" value="{{$producto->id}}">

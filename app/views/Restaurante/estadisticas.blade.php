@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Estadisticas</title>
 </head>
 <body>
 
@@ -22,19 +22,20 @@
           <th>Consultas</th>
           <th>Comisión</th>          
           <th>Total a depositar</th> 
+          <th>Numero de cuenta</th>
          
      </thead>
      <tbody>
  
      <tr>
      	<td>Mi restaurante</td>
-     	<td>3</td>
-     	<td>$150</td>
-     	<td>2</td>
-          <td>2</td>
-          <td>1</td>
-          <td>$20</td>
-          <td>$2000</td>
+     	<td>{{$cantidad}}</td>
+     	<td>${{$OP}}</td>
+     	<td>{{$NuOrdenes}}</td>
+          <td>{{$Reservaciones}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
          
           
      	
@@ -43,7 +44,7 @@
      </tbody>
      </table>
      <div class="panel-footer clearfix rest">
-	  @include('Admin.menu')
+	  @include('Restaurante.menu')
 	</div>     
 	</div>
 	</div>

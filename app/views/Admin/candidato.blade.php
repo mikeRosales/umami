@@ -46,6 +46,9 @@
 		       <div class="form-group col-md-4">
 		         <img id="blah" style="width:100%;" src="{{asset($candidato->img_ref)}}" />			
 		       </div>
+		       <br>
+		       <br>
+		       <br>
 		        <div class="form-group col-lg-4">
 		         {{ Form::label('user', 'Usuario') }}
 		         {{ Form::text('user', Input::old('user'), array('class' => 'form-control','form'=>'nueva')) }}

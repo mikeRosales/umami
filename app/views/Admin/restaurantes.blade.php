@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Restaurantes</title>
 </head>
 <body>
 	  <div class="container marg">
@@ -29,7 +29,7 @@
 					<div class="col-md-5" style="border:1px solid; height:20%; margin:1%;" >
 						
 							<div class="col-md-12">
-								<img style="width:100%; height:80%; margin:10%;"src="{{asset($value->imagen)}}">
+								<img alt="img-perfil" style="width:100%; height:80%; margin:2%;"src="{{asset($value->imagenR)}}">
 							</div>
 						
 								

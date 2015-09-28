@@ -10,7 +10,7 @@ class Productos extends Eloquent
 		->leftjoin('restaurantes as Restaurantes',	function($join){
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
-		->where('Restaurantes.domicilio','=',' 1')
+		->where('Restaurantes.validado','=',' 1')
 
 		->where('Productos.hora_inicio','<', $hora)
 
@@ -52,7 +52,7 @@ class Productos extends Eloquent
 		->leftjoin('restaurantes as Restaurantes',	function($join){
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
-		->where('Restaurantes.domicilio','=',' 1')
+		->where('Restaurantes.validado','=',' 1')
 
 		->where('Productos.id','=', $id)
 		
@@ -91,7 +91,7 @@ class Productos extends Eloquent
 		->leftjoin('restaurantes as Restaurantes',	function($join){
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
-		->where('Restaurantes.domicilio','=',' 1')
+		->where('Restaurantes.validado','=',' 1')
 
 		->where('Productos.hora_inicio','<', $hora)
 
@@ -103,5 +103,28 @@ class Productos extends Eloquent
 		
 		->get();
 		return $alimentos;
+	}
+
+	public function scopePorCategoria($productos,$categoria){
+
+		date_default_timezone_set('America/Mexico_City');
+		
+		$productos = DB::table('productos as Productos')
+
+		->where('Productos.hora_inicio','<', date('H:i:s'))
+
+		->where('Productos.hora_fin','>', date('H:i:s'))
+
+		->where('Productos.id_categoria','=',$categoria)
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+		})
+
+		->where('Restaurantes.validado','=','1');
+
+	
+		
+		return $productos;
 	}
 }

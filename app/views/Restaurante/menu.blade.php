@@ -6,4 +6,5 @@
 	<li><a href="{{URL::to('/restaurante/informes') }}">Informes</a></li>
 	<li><a href="{{URL::to('/restaurante/datos') }}">No de cuenta</a></li>
 	<li><a href="{{URL::to('/restaurante/estadisticas') }}">Estadisticas</a></li>
+	<li><a href="{{URL::to('/logout') }}">Salir</a></li>
 </ul>

@@ -11,7 +11,7 @@ class AdminController extends \BaseController {
 	public function pedidos()
 	{
 
-		$pedidos= Pedidos::pedidos();		
+		$pedidos= Pedidos::Admin();		
 		return View::make('Admin.pedidos',compact('pedidos'));
 	}
 public function publicidad()
@@ -35,19 +35,33 @@ public function publicidad()
 	}
 	public function restaurantes()
 	{
-		$restaurantes= Restaurantes::all();
+		$restaurantes= Restaurantes::where('validado','=','1')->get();
 		return View::make('Admin.restaurantes',compact('restaurantes'));
 	}		
 	public function informes()
 	{
-		$VT = Pedidos::VT();
-		$IVA = Pedidos::IVA();
-		$NuOrdenes = Pedidos::NuOrdenes();
-		$OM = Pedidos::OM();
-		$MO = Pedidos::MO();
-		$OP = Pedidos::OP();
+		$id= Auth::user()->id_restaurante;
+		$pedidos=Pedidos::pagadas($id)->count();
 	
-		return View::make('Admin.informes',compact('VT','IVA','NuOrdenes','OM','MO','OP'));
+
+		
+		if($pedidos==0){
+ 			return View::make('Admin.informes2');	
+ 		}
+
+ 		else{
+		$VT = Pedidos::pagadasAdmin($id)->sum('total');
+				
+		$IVA = Pedidos::pagadasAdmin($id)->sum('iva');
+		$IMPORTE = $VT-$IVA;
+		$NuOrdenes = Pedidos::pagadasAdmin($id)->count();
+
+		$OM = Pedidos::pagadasAdmin($id)->max('total');
+		$MO = Pedidos::pagadasAdmin($id)->min('total');
+		$OP = Pedidos::pagadasAdmin($id)->avg('total');
+	
+		return View::make('Admin.informes',compact('VT','IVA','IMPORTE','NuOrdenes','OM','MO','OP'));
+		}
 	}
 	public function usuarios()
 	{
@@ -111,8 +125,42 @@ public function publicidad()
 			$candidato[0]->delete();
 			return Redirect::to('admin/candidatos')->with('message','Restaurante eliminado con éxito');
 	}
+	public function categorias()
+	{
+		$categorias = Categorias::All();
+		return View::make('Admin.categorias',compact('categorias'));
 
-
+	}
+	public function activar()
+	{
+		$valor = Input::get('activar');
+		$activa = Input::get('opt');
+		$categoria = Categorias::find($valor);
+		$categoria->activa = $activa;
+		$categoria->save();
+			return Redirect::back()->with('message','Cambios con exito');
+	}
+	public function publicar()
+	{
+		$publicidad = new Publicidad;
+		$image = Input::file('imagen');
+		if($image!=null){
+			
+				$name_image = $image -> getClientOriginalName();	
+				$image_final = 'publicidad/' .$name_image;
+				$publicidad->imagen = $image_final;
+				$image -> move('publicidad', $name_image );
+			}
+		$date = DateTime::createFromFormat('d/m/Y', Input::get('date'));
+		$date=$date->format('Y-m-d');
+		
+		$publicidad->descripcion = Input::get('descripcion');
+		$publicidad->dia = $date;
+		$publicidad->hora_inicio = Input::get('hora_inicio');
+		$publicidad->hora_fin = Input::get('hora_fin');
+		$publicidad->save();
+		return Redirect::back()->with('message','Publicidad subida correctamente');
+	}
 
 
 }

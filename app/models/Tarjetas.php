@@ -1,6 +1,6 @@
 <?php
 
-class PymeSolicitudes extends Eloquent
+class Tarjetas extends Eloquent
 {
 
 	protected $table = 'tarjetas';

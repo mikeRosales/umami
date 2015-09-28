@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" http-equiv="refresh" content="30">
-	<title>Document</title>
+	<title>Pedidos</title>
 </head>
 <body>
 	  <div class="container marg">

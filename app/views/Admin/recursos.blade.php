@@ -23,8 +23,9 @@ $(function(){
 });
 </script>
 @endif
+<?php  $var = $errors->all()?> 
+@if(!empty($var))
 
-@if(!empty($errors->all()))
 @foreach ($errors->all() as $error)
 <script>
 $(function(){

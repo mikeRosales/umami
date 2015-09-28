@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Agregar</title>
 </head>
 <body>
 	  <div class="container marg">
@@ -24,16 +24,8 @@
 			<label>Descripcion</label>
 			<textarea name="descripcion" id=""  rows="10"></textarea>
 			  <label>Categoria  </label>
-	          <select name="categoria">
-	            <option value="fria">Fria</option>
-	            <option value="caliente">Caliente</option>	            
-         	 </select>
-         	 <br>
-         	 <label>Sabor </label>
-	          <select name="sabor">
-	            <option value="salado">Salado</option>
-	            <option value="dulce">Dulce</option>	            
-         	 </select>
+	           {{ Form::select('categoria', (['0' => 'Elija una categoria'] + $categorias), null,['class' => 'form-control']) }}
+         	 <br>         	
 	      
 			</div>
 			<div class="col-md-3">
@@ -47,16 +39,22 @@
 				<br>
 				<label for="">Comisión</label>
 				<br>
-				<input name="comision"  type="text">
+				<input name="comision" value="2.5" type="text">
 				<br>
 				<label for="">Precio final</label>
 				<br>
 				<input name="precio_final"  value="" type="text">
+				<br>			
+		         {{ Form::label('hora_inicio', 'hora a la que se comienza a preparar') }}
+		         <br>
+		         {{ Form::text('hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00')) }}
+		    	<br/>
+		    
+		         {{ Form::label('hora_fin', 'hora a la que se deja de preparar') }}
+		         <br>
+		         {{ Form::text('hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00')) }}		    
 				<br>
-				<label for="">Horario</label> <input  value="" name="horario" type="text">
-				<br>
-				<br>
-				<input type="hidden" name="id" value="">
+				<br>				
 			{{Form::submit('Guardar cambios',array('class'=>'btn btn-primary'))}}
 			</div>
 

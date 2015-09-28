@@ -3,15 +3,56 @@
 class Pedidos extends Eloquent
 {
 	protected $table = "pedidos";
-	public function scopePedidos($pedidos){
+
+	public function scopePedidos($pedidos,$id){
 		$pedidos =DB::table('pedidos')
 		->leftjoin('restaurantes as restaurantes',	function($join){
 							$join->on('restaurantes.id','=','pedidos.id_restaurante');
 					}) 
+		->where('pedidos.id_restaurante','=',$id)
+		->where('pedidos.estatus','=','pendiente')
 		->select('*','restaurantes.nombre')
 		->get();
 		return $pedidos;
 	}
+		public function scopeAdmin(){
+		$pedidos =DB::table('pedidos')
+		->leftjoin('restaurantes as restaurantes',	function($join){
+							$join->on('restaurantes.id','=','pedidos.id_restaurante');
+					}) 		
+		->select('*','restaurantes.nombre')
+		->get();
+		return $pedidos;
+	}
+	public function scopePagadas($pagadas,$id){
+		$pagadas = DB::table('pedidos')
+			->where('estatus','=','pagada')							
+			->where('id_restaurante','=', $id)
+			->leftjoin('detalles_pedidos as detalles',	function($join){
+							$join->on('detalles.id_pedido','=','pedidos.id');
+					});
+		return $pagadas;
+	}
+		public function scopePagadasAdmin($pagadas,$id){
+		$pagadas = DB::table('pedidos')
+			->where('estatus','=','pagada')							
+			->where('id_restaurante','=', $id)
+			->leftjoin('detalles_pedidos as detalles',	function($join){
+							$join->on('detalles.id_pedido','=','pedidos.id');
+					});
+		return $pagadas;
+	}
+	public function scopeVendidos($id)
+	{
+		$pagadas = DB::table('pedidos')
+		->where('pedidos.id_restaurante','=',$id)	
+		->leftjoin('detalles_pedidos as detalles',	function($join){
+							$join->on('detalles.id_pedido','=','pedidos.id');
+					}) 
+		->get();
+		return $pagadas;
+	}	
+
 	public function scopeConsulta($query){
 
 			$query =DB::table('pedidos')
@@ -33,41 +74,5 @@ class Pedidos extends Eloquent
 					return $query;
 		
 	}
-	public function scopeVT(){
-		$VT =DB::table('pedidos')
-		->where('pedidos.estatus','=','confirmada')
-		->sum('pedidos.total');
 
-		return $VT;
-	}
-	public function scopeImporte(){
-		
-	}
-	public function scopeIVA(){
-		
-	}
-	public function scopeNuOrdenes(){
-			$NuOrdenes =DB::table('pedidos')
-		->where('pedidos.estatus','=','confirmada')
-		->count();
-		return $NuOrdenes;
-	}
-	public function scopeOM(){
-		$OM =DB::table('pedidos')
-		->where('pedidos.estatus','=','confirmada')
-		->min('pedidos.total');
-		return $OM;
-	}
-	public function scopeMO(){
-			$MO =DB::table('pedidos')
-		->where('pedidos.estatus','=','confirmada')
-		->max('pedidos.total');
-		return $MO;
-	}
-	public function scopeOP(){
-		$OP =DB::table('pedidos')
-		->where('pedidos.estatus','=','confirmada')
-		->avg('pedidos.total');
-		return $OP;
-	}
 }

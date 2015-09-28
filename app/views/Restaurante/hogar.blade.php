@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
 
-	<meta charset="UTF-8" http-equiv="refresh" content="30">
-	<title>Document</title>
+	<meta charset="UTF-8" http-equiv="refresh" content="10">
+	<title>Hogar</title>
 </head>
 <body>
 	  <div class="container marg">
@@ -90,7 +90,7 @@
      <br>
      <br>
      <br>
-     @if(count($reservaciones)>0)     	
+     	
 			<table class="table table-bordered table-condensed">
      		<h4 align="top"> Reservaciones </h4>
      		<thead>
@@ -99,7 +99,8 @@
      			<th>Hora de llegada</th>     			
      			<th>Cantidad</th>
      			<th>Producto</th> 	
-     		</thead>     
+     		</thead>   
+     		  @if(count($reservaciones)>0)     
 		 @foreach($reservaciones as $r)
 		 {{Form::open(array('url' => '/rescon'))}}
 			<?php $b = 1; ?>
@@ -137,11 +138,11 @@
 		 	</tbody>
 			{{Form::close()}}
 		 @endforeach
-	
+	    @endif
 			</table>
 			
      	
-     @endif
+ 
      <div class="panel-footer clearfix rest">
 	  @include('Restaurante.menu')
 	</div>     

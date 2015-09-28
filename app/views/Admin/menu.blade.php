@@ -7,4 +7,7 @@
 	<li><a href="{{URL::to('/admin/informes') }}">Informe</a></li>
 	<li><a href="{{URL::to('/admin/estadisticas') }}">Estadisticas</a></li>
 	<li><a href="{{URL::to('/admin/candidatos') }}">Candidatos</a></li>
+	<li><a href="{{URL::to('/admin/categorias') }}">Categorias</a></li>
+	<li><a href="{{URL::to('/admin/publicidad') }}">Publicidad</a></li>
+	<li><a href="{{URL::to('/logout') }}">Salir</a></li>
 </ul>

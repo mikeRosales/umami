@@ -24,5 +24,12 @@ class Reservaciones extends Eloquent
 
 					return $query;
 		
+
+	}
+		public function scopeConfirmadas($confirmadas,$id){
+		$confirmadas = DB::table('reservaciones')
+			->where('estatus','=','confirmada')							
+			->where('id_restaurante','=', $id);
+		return $confirmadas;
 	}
 }
