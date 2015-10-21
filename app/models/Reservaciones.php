@@ -20,7 +20,7 @@ class Reservaciones extends Eloquent
 
 					->orderBy('detalles.id_reservacion')	
 
-					->select('reservaciones.id','detalles.id_reservacion','detalles.mesa','detalles.cantidad', 'productos.nombre');
+					->select('reservaciones.id','detalles.id_reservacion','reservaciones.mesa','detalles.cantidad', 'productos.nombre');
 
 					return $query;
 		
@@ -30,6 +30,24 @@ class Reservaciones extends Eloquent
 		$confirmadas = DB::table('reservaciones')
 			->where('estatus','=','confirmada')							
 			->where('id_restaurante','=', $id);
+		return $confirmadas;
+	}
+		public function scopeReservadas(){
+		$productos =DB::table('reservaciones')
+		
+		->select(DB::raw('id_restaurante, Count(id_restaurante) as cantidad '))
+		
+		->groupBy('id_restaurante')
+		->orderBy('cantidad','DSC');
+	
+		return $productos;
+	}
+	public function scopeRes($confirmadas,$id)
+	{
+		$confirmadas = DB::table('reservaciones')
+			->where('estatus','=','pendiente')							
+			->where('id_restaurante','=', $id)
+			->get();
 		return $confirmadas;
 	}
 }

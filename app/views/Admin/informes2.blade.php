@@ -39,7 +39,7 @@
           <tr><td>Costo Promedio de ordenes</td><td></td> </tr>
      </table>     
      <div class="panel-footer clearfix admin">
-	  @include('Admin.menu')
+
 	</div>     
 	</div>
 	</div>

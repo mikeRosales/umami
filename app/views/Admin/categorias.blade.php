@@ -12,24 +12,26 @@
     <div class="panel panel-default">
      <div class="panel-heading admin"><h4>Categorias</h4></div>
      		<div class="panel-body ">
- 
+ 	{{ Form::open(array('url' => '/admin/activar','files'=>'true')) }}
      			  @foreach($categorias as $key => $value)  
 		     	<div class="form-group col-lg-4">
-		         	{{ Form::open(array('url' => '/admin/activar','files'=>'true')) }}
+		         
 		         {{ Form::text('nombre', $value->nombre, array('class' => 'col-md-3')) }}
 		             
-					{{ Form::select('opt', [
-					   '1' => 'Activar',
-					   '0' => 'Desactivar']
-					) }}
-					{{Form::hidden('activar',$value->id)}}
-					{{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
-					{{ Form::close() }}
+					@if($value->activa==0)
+		           <input tabindex="1" type="checkbox" name="categoria[{{$value->id}}]" id="{{$value->id}}" value="{{$value->activa}}" >   
+		           @else
+		           <input tabindex="1" type="checkbox" name="categoria[{{$value->id}}]" id="{{$value->id}}" value="{{$value->activa}}" checked="true">   
+		           @endif
+					
+				
 				     </div>
 				     @endforeach
+				     	{{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
+					{{ Form::close() }}
 		         
      	<div class="panel-footer clearfix admin">
-	  @include('Admin.menu')
+
 	</div>     
 	</div>
 	</div>

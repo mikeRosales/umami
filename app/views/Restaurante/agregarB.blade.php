@@ -28,22 +28,24 @@
     
 
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 precios">
 				<label >Precio</label>
 				<br>
-				<input name="precio" value="" type="text">
+				<input class="inicial" name="precio" value="" type="text">
 				<br>
 				<label >Costo por transacción</label>
 				<br>
-				<input name="costo"   type="text">
+				<input name="costo" value="2.5" readonly  type="text">
 				<br>
 				<label for="">Comisión</label>
 				<br>
-				<input name="comision"  type="text">
+				<input type="hidden" name="comision" class="comision"   >
+				<label name="comision2" class="comision2" ></label>
 				<br>
 				<label for="">Precio final</label>
 				<br>
-				<input name="precio_final"  value="" type="text">
+				<input type="hidden" name="costo_unitario" class="costo_unitario"   >
+				<label name="costo_unitario2" class="costo_unitario2" ></label>
 				<br>
 				<br>			
 		         {{ Form::label('hora_inicio', 'hora a la que se comienza a preparar') }}
@@ -63,7 +65,7 @@
 		{{Form::close()}}
 		</div>
      <div class="panel-footer clearfix rest">
-	  @include('Restaurante.menu')
+
 	</div>     
 	</div>
 	</div>

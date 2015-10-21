@@ -1,4 +1,4 @@
-@include('Admin.recursos')
+@include('Restaurante.recursos')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +39,7 @@
           <tr><td>Costo Promedio de ordenes</td><td></td> </tr>
      </table>     
      <div class="panel-footer clearfix rest">
-	  @include('Restaurante.menu')
+
 	</div>     
 	</div>
 	</div>

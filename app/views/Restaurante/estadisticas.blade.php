@@ -1,4 +1,4 @@
-@include('Admin.recursos')
+@include('Restaurante.recursos')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,10 +32,11 @@
      	<td>{{$cantidad}}</td>
      	<td>${{$OP}}</td>
      	<td>{{$NuOrdenes}}</td>
-          <td>{{$Reservaciones}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{$Reservaciones}}</td>         
+          <td>{{$consultas}}</td>
+          <td>{{$totalComision}}</td>
+          <td>{{$totalDepositar}}</td>
+          <td>{{$cuenta}}</td>
          
           
      	
@@ -44,7 +45,7 @@
      </tbody>
      </table>
      <div class="panel-footer clearfix rest">
-	  @include('Restaurante.menu')
+	
 	</div>     
 	</div>
 	</div>

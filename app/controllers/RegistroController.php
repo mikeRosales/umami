@@ -4,6 +4,14 @@ class RegistroController extends BaseController {
 
 	public function registrar()
 	{
+		$codigo = Input::get('codigo_postal');
+		if ($codigo > 34398 || $codigo < 34000)
+		{
+			return Response::json('0');		
+		}else{
+
+
+		$reg_id = Input::get('reg_id');
 		$user = New User();
 		$user->username = Input::get('correo');
 		$user->password = Hash::make(Input::get('password'));
@@ -13,10 +21,11 @@ class RegistroController extends BaseController {
 		$user->correo = Input::get('correo');
 		$user->edad = Input::get('edad');
 		$user->sexo = Input::get('sexo');
+		$user->reg_id = $reg_id;
 		$user->codigo_postal = Input::get('codigo_postal');
 		$user->save();
-		return Response::json('Logged in');		
-
+		return Response::json('1');		
+		}
 	}
 	public function index()
 	{

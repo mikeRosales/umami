@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8" http-equiv="refresh" content="20">
 	<title>Pedido</title>
 </head>
 <body>
@@ -29,7 +29,7 @@
      </tbody>
      </table>
      <div class="panel-footer clearfix admin">
-	  @include('Admin.menu')
+	
 	</div>     
 	</div>
 	</div>

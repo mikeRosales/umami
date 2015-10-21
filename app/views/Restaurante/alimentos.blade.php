@@ -47,7 +47,7 @@
 	@endif
 	</div>
      <div class="panel-footer clearfix rest">
-	  @include('Restaurante.menu')
+
 	</div>     
 	</div>
 	</div>

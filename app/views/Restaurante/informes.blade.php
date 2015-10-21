@@ -1,4 +1,4 @@
-@include('Admin.recursos')
+@include('Restaurante.recursos')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +14,7 @@
           <tr><td>Ventas totales</td><td>${{$VT}}</td></tr>
        
           <tr><td>Importe</td><td>${{$IMPORTE}}</td></tr>
-          <tr><td>IVA por pagar</td><td>${{$IVA}}</td></tr>
+          
           <tr><td>No. de ordenes</td><td>{{$NuOrdenes}}</td>     </tr>
           <tr><td>Costo Maximo de ordenes</td><td>${{$OM}}</td>   </tr>
           <tr><td>Costo Minino de ordenes</td><td>${{$MO}}</td>   </tr>
@@ -23,7 +23,7 @@
           <tr><td colspan="2">Semanal</td>   </tr>
               <tr><td>Ventas totales</td><td></td></tr>
           <tr><td>Importe</td><td></td></tr>
-          <tr><td>IVA por pagar</td><td></td></tr>
+          
           <tr><td>No. de ordenes</td><td></td>     </tr>
           <tr><td>Costo Maximo de ordenes</td><td></td>   </tr>
           <tr><td>Costo Minino de ordenes</td><td></td>   </tr>
@@ -32,14 +32,14 @@
           <tr><td colspan="2">Mensual</td>   </tr>
               <tr><td>Ventas totales</td><td></td></tr>
           <tr><td>Importe</td><td></td></tr>
-          <tr><td>IVA por pagar</td><td></td></tr>
+          
           <tr><td>No. de ordenes</td><td></td>     </tr>
           <tr><td>Costo Maximo de ordenes</td><td></td>   </tr>
           <tr><td>Costo Minino de ordenes</td><td></td>   </tr>
           <tr><td>Costo Promedio de ordenes</td><td></td> </tr>
      </table>     
      <div class="panel-footer clearfix rest">
-       @include('Restaurante.menu')
+       
      </div>     
      </div>
      </div>

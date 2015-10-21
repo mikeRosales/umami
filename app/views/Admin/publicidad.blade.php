@@ -8,7 +8,7 @@
 <body>
 	  <div class="container marg">
     <div class="panel panel-default">
-     <div class="panel-heading admin"><h4>Pedidos</h4></div>   
+     <div class="panel-heading admin"><h4>Publicidad</h4></div>   
      		<div class="container">
      			<div class="col-md-3">
 				<br>
@@ -88,7 +88,7 @@
 				
      		</div>
           <div class="panel-footer clearfix admin">
-	  @include('Admin.menu')
+
 	</div>     
 	</div>
 	</div>

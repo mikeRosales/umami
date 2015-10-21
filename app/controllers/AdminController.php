@@ -24,13 +24,15 @@ public function publicidad()
 	{
 		
 		$alimentos=Productos::where('tipo','=','alimento')->get();
-		return View::make('Admin.alimentos',compact('alimentos'));
+		$mensaje = 0;
+		return View::make('Admin.alimentos',compact('alimentos','mensaje'));
 		
 	}
 	public function bebidas()
 	{
 		$bebidas=Productos::where('tipo','=','bebida')->get();
-		return View::make('Admin.bebidas',compact('bebidas'));
+		$mensaje = 0;
+		return View::make('Admin.bebidas',compact('bebidas','mensaje'));
 		
 	}
 	public function restaurantes()
@@ -71,8 +73,7 @@ public function publicidad()
 	}
 	public function estadisticas()
 	{
-		
-		
+		$restaurantes = Restaurantes::estadisticas()->get(); 
 		return View::make('Admin.estadisticas');
 	}
 	public function candidatos(){
@@ -132,13 +133,13 @@ public function publicidad()
 
 	}
 	public function activar()
-	{
-		$valor = Input::get('activar');
-		$activa = Input::get('opt');
-		$categoria = Categorias::find($valor);
-		$categoria->activa = $activa;
-		$categoria->save();
-			return Redirect::back()->with('message','Cambios con exito');
+	{	dd(Input::All());
+		// $valor = Input::get('activar');
+		// $activa = Input::get('opt');
+		// $categoria = Categorias::find($valor);
+		// $categoria->activa = $activa;
+		// $categoria->save();
+		// 	return Redirect::back()->with('message','Cambios con exito');
 	}
 	public function publicar()
 	{
@@ -160,6 +161,104 @@ public function publicidad()
 		$publicidad->hora_fin = Input::get('hora_fin');
 		$publicidad->save();
 		return Redirect::back()->with('message','Publicidad subida correctamente');
+	}
+	public function vistos()
+	{
+		$alimentos=DetallesPedidos::vistos()->get();
+
+		$mensaje = 1;
+		return View::make('Admin.alimentos',compact('alimentos','mensaje'));
+	}
+	public function maspedidos()
+	{
+		$alimentos=DetallesPedidos::vistos()->get();
+
+		$mensaje = 2;
+		return View::make('Admin.alimentos',compact('alimentos','mensaje'));
+	}
+	public function precios()
+	{
+		$alimentos=Productos::where('tipo','=','alimento')->orderBy('costo_unitario','DSC')->get();
+
+		return View::make('Admin.alimentos',compact('alimentos'));
+	}
+	public function porcategoria()
+	{
+
+		$alimentos=Productos::where('tipo','=','alimento')->get();
+		$categorias = Categorias::All();
+		return View::make('Admin.alimentos2',compact('alimentos','categorias'));
+	}
+		public function vistos2()
+	{
+		$bebidas=DetallesPedidos::vistos2()->get();
+
+		
+		$mensaje = 1;
+		return View::make('Admin.bebidas',compact('bebidas','mensaje'));
+	}
+	public function maspedidos2()
+	{
+		$bebidas=DetallesPedidos::vistos2()->get();
+
+		
+		$mensaje = 2;
+		return View::make('Admin.bebidas',compact('bebidas','mensaje'));
+	}
+	public function precios2()
+	{
+		$bebidas=Productos::where('tipo','=','bebida')->orderBy('costo_unitario','DSC')->get();
+		
+		return View::make('Admin.bebidas',compact('bebidas'));
+	}
+	public function porcategoria2()
+	{
+
+		$bebidas=Productos::where('tipo','=','bebida')->get();
+		$categorias = Categorias::All();
+		return View::make('Admin.bebidas2',compact('bebidas','categorias'));
+	}
+		public function vistos3()
+	{
+		$bebidas=DetallesPedidos::vistos2()->get();
+
+		
+		return View::make('Admin.bebidas',compact('bebidas'));
+	}
+		public function ordenes()
+	{
+		$variable=Pedidos::pedidas()->get();
+		$restaurantes= Restaurantes::where('validado','=','1')->get();	
+			
+		return View::make('Admin.restaurantes2',compact('restaurantes','variable'));
+	}
+		public function reservaciones()
+	{
+		$variable=Reservaciones::reservadas()->get();
+		$restaurantes= Restaurantes::where('validado','=','1')->get();			
+			
+		return View::make('Admin.restaurantes2',compact('restaurantes','variable'));
+	}
+		public function ventas()
+	{
+		$variable=Pedidos::total()->get();
+		$restaurantes= Restaurantes::where('validado','=','1')->get();			
+		
+		return View::make('Admin.restaurantes2',compact('restaurantes','variable'));
+	}
+		public function productos()
+	{
+		$variable=Productos::rest()->get();
+		$restaurantes= Restaurantes::where('validado','=','1')->get();			
+		
+		return View::make('Admin.restaurantes2',compact('restaurantes','variable'));
+	}
+		public function op()
+	{
+		$variable=Pedidos::oP()->get();
+		$restaurantes= Restaurantes::where('validado','=','1')->get();			
+		
+		return View::make('Admin.restaurantes2',compact('restaurantes','variable'));
 	}
 
 

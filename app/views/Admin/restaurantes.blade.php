@@ -12,28 +12,29 @@
 	<div class="container col-height">
 	<ul class="nav nav-tabs">
 	
-	<li> <a href="{{URL::to('#') }}">Mas vistos</a></li>
-	<li><a href="{{URL::to('#') }}">Mas ordenes</a></li>
-	<li><a href="{{URL::to('#') }}">Mas reservaciones</a></li>
-	<li><a href="{{URL::to('#') }}">Mas ventas</a></li>
-	<li><a href="{{URL::to('#') }}">Mas productos</a></li>
-	<li><a href="{{URL::to('#') }}">Orden promedio</a></li>
+	<li><a href="{{URL::to('/admin/vistos3') }}">Mas vistos</a></li>
+	<li><a href="{{URL::to('/admin/ordenes') }}">Mas ordenes</a></li>
+	<li><a href="{{URL::to('/admin/reservaciones') }}">Mas reservaciones</a></li>
+	<li><a href="{{URL::to('/admin/ventas') }}">Mas ventas</a></li>
+	<li><a href="{{URL::to('/admin/productos') }}">Mas productos</a></li>
+	<li><a href="{{URL::to('/admin/op') }}">Orden promedio</a></li>
 	
 	</ul>
 	<br>
 	
 	
 			@if(count($restaurantes)>0)
-			<div class="col-md-12">
+			<div class="row">
 	 			@foreach($restaurantes as $key => $value)
-					<div class="col-md-5" style="border:1px solid; height:20%; margin:1%;" >
+
+					<div class="col-md-5" style="border:1px solid;  margin:1%;" >
 						
 							<div class="col-md-12">
-								<img alt="img-perfil" style="width:100%; height:80%; margin:2%;"src="{{asset($value->imagenR)}}">
+								<img alt="img-perfil" style="width:100%; height:200px; margin:2%;"src="{{asset($value->imagenR)}}">
 							</div>
 						
 								
-								
+							{{$value->nombre}}	
 						
 					</div>
 				@endforeach
@@ -44,7 +45,7 @@
 
 
      <div class="panel-footer clearfix admin">
-	  @include('Admin.menu')
+
 	</div>     
 	</div>
 	</div>

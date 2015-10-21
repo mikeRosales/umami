@@ -22,6 +22,7 @@ Route::post('/prospectos','RegistroController@create');
 Route::post('users/login', function()
 {
 	$remember = Input::get('remember');
+		
 	$credentials = array(
 		'username' => Input::get('username'), 
 		'password' => Input::get('password')
@@ -30,6 +31,12 @@ Route::post('users/login', function()
 
 	if (Auth::attempt( $credentials ))
 	{
+
+
+
+		$usuario = User::where('username','=',Input::get('username'))->first();
+		$usuario->estatus = 1;
+		$usuario->save();
 		return Response::json('Logged in');
 	 	
 	}else{
@@ -40,6 +47,7 @@ Route::post('users/login', function()
 
 
 Route::post('/users/pedidos', 'UserController@pedidos');
+Route::get('/users/productos', 'UserController@productos');
 Route::post('/users/reservaciones', 'UserController@reservaciones');
 Route::post('/users/tarjeta', 'UserController@tarjeta');
 Route::get('/users/alimentos','UserController@alimentos');
@@ -47,6 +55,7 @@ Route::get('/users/bebidas','UserController@bebidas');
 Route::post('/users/platilloEsp','UserController@platilloEsp');
 Route::post('/users/addAlim','UserController@addPlatillo');
 Route::get('/users/restaurantes','UserController@restaurantes');
+Route::get('/users/allCat','UserController@allCat');
 Route::post('/users/factura','UserController@factura');
 Route::post('/users/categorias','UserController@categorias');
 Route::post('/users/tarjetas','UserController@tarjetas');
@@ -55,6 +64,22 @@ Route::post('/users/modFacturas','UserController@modFacturas');
 Route::post('/users/valoracion','UserController@valoracion');
 Route::post('/users/tarjetasP','UserController@tarjetasP');
 Route::post('/users/facturasP','UserController@facturasP');
+Route::post('/users/chaPass','UserController@chaPass');
+Route::post('/users/delTarjeta','UserController@delTarjeta');
+Route::post('/users/delFactura','UserController@delFactura');
+Route::post('/users/ultPedido','UserController@ultPedido');
+Route::post('/users/buscar','UserController@buscar');
+Route::post('/users/buscarA','UserController@buscarA');
+Route::post('/users/buscarR','UserController@buscarR');
+Route::post('/users/facturarR','UserController@facturarR');
+Route::post('/users/estatus','UserController@estatus');
+Route::post('/users/borrarP','UserController@borrarP');
+Route::post('/users/estatusR','UserController@estatusR');
+Route::post('/users/borrarR','UserController@borrarR');
+Route::post('/users/con_direccion','UserController@aumentarD');
+Route::post('/users/con_telefono','UserController@aumentarT');
+Route::post('/users/con_publicidad','UserController@aumentarP');
+Route::post('/users/cerrar','UserController@cerrar');
 Route::resource('/users/payment', 'UserController@payment');
 Route::resource('/users/publicidad', 'UserController@getPubli');
 
@@ -67,6 +92,7 @@ Route::get('/restaurante/hogar','RestauranteController@index');
 Route::get('/restaurante/alimentos','RestauranteController@alimentos');
 Route::get('/restaurante/bebidas','RestauranteController@bebidas');
 Route::get('/restaurante/pedidos','RestauranteController@pedidos');
+Route::get('/restaurante/declinadas','RestauranteController@declinadas');
 Route::get('/restaurante/informes','RestauranteController@informes');
 Route::get('/restaurante/datos','RestauranteController@datos');
 Route::post('/restaurante/datos','RestauranteController@guardarTarjeta');
@@ -78,7 +104,12 @@ Route::post('/restaurante/addB','RestauranteController@addB');
 Route::post('/restaurante/editar','RestauranteController@editar');
 Route::post('/restaurante/saveChanges','RestauranteController@saveChanges');
 Route::post('condec','RestauranteController@hogarPedidos');
+Route::post('rescon','RestauranteController@rescon');
 Route::get('/restaurante/estadisticas','RestauranteController@estadisticas');
+Route::get('/restaurante/facturas','RestauranteController@facturas');
+Route::get('/restaurante/{id}/factura','RestauranteController@factura');
+Route::get('/restaurante/noAtendidas','RestauranteController@noAtendidas');
+Route::post('/restaurante/facturaM','RestauranteController@facturaM');
 });
 
 Route::group(array('before' => array('auth', 'admin')), function()
@@ -99,4 +130,18 @@ Route::post('/admin/borrar_candidato','AdminController@borrar_candidato');
 Route::get('/admin/categorias','AdminController@categorias');
 Route::post('/admin/activar','AdminController@activar');
 Route::post('/admin/publicidad','AdminController@publicar');
+Route::get('/admin/vistos','AdminController@vistos');
+Route::get('/admin/maspedidos','AdminController@maspedidos');
+Route::get('/admin/precios','AdminController@precios');
+Route::get('/admin/porcategoria','AdminController@porcategoria');
+Route::get('/admin/vistos2','AdminController@vistos2');
+Route::get('/admin/maspedidos2','AdminController@maspedidos2');
+Route::get('/admin/precios2','AdminController@precios2');
+Route::get('/admin/porcategoria2','AdminController@porcategoria2');
+Route::get('/admin/vistos3','AdminController@vistos3');
+Route::get('/admin/ordenes','AdminController@ordenes');
+Route::get('/admin/reservaciones','AdminController@reservaciones');
+Route::get('/admin/ventas','AdminController@ventas');
+Route::get('/admin/productos','AdminController@productos');
+Route::get('/admin/op','AdminController@op');
 });

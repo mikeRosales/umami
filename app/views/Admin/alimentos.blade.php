@@ -14,10 +14,10 @@
 	<div class="container">
 	<ul class="nav nav-tabs">
 	
-	<li> <a href="{{URL::to('#') }}">Mas vistos</a></li>
-	<li><a href="{{URL::to('#') }}">Mas pedidos</a></li>
-	<li><a href="{{URL::to('#') }}">Por precio</a></li>
-	<li><a href="{{URL::to('#') }}">Por categoria</a></li>
+	<li><a href="{{URL::to('/admin/vistos') }}">Mas vistos</a></li>
+	<li><a href="{{URL::to('/admin/maspedidos') }}">Mas pedidos</a></li>
+	<li><a href="{{URL::to('/admin/precios') }}">Por precio</a></li>
+	<li><a href="{{URL::to('/admin/porcategoria') }}">Por categoria</a></li>
 	
 	</ul>
 	<br>
@@ -25,8 +25,15 @@
 	@if(count($alimentos)>0)
 	<div class="row">
 	 	@foreach($alimentos as $key => $value)
-				<div class="col-md-5" style="border:1px solid;  margin:1%;" >
-						
+
+				<div class="col-md-5" style="border:1px solid;   margin:1%;" >
+			@if($mensaje==1)
+	 			<h4>Visto {{$value->cantidad}} veces</h4>		
+	 		@elseif($mensaje==2)
+	 			<h4>Pedido {{$value->cantidad}} veces</h4>	
+	 		@endif
+	 		<br>
+	 		<br>
 							<div class="col-md-7 ">
 								<img style="width:100%;margin:5%;" height="200px" src="{{asset($value->imagen)}}">
 							</div>
@@ -38,7 +45,7 @@
 							</div>
 							<br/>
 							<div class="col-md-2">
-								{{$value->precio}}$
+								{{$value->costo_unitario}}$
 								<input type="checkbox">
 							</div>
 								
@@ -50,7 +57,7 @@
 	@endif
 	</div>
      <div class="panel-footer clearfix admin">
-	  @include('Admin.menu')
+	
 	</div>     
 	</div>
 	</div>

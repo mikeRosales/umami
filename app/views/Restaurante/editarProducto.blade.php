@@ -22,35 +22,38 @@
 			<input type="text" name="nombre" value="{{$producto->nombre}}">
 			<textarea name="descripcion" id=""  rows="10">{{$producto->descripcion}}</textarea>
 			  <label>Categoria  </label>
-	          {{ Form::select('categoria', (['0' => 'Elija una categoria'] + $categorias), null,['class' => 'form-control']) }}
+	          {{ Form::select('categoria' ,(['0' => $cat->nombre] + $categorias),$cat->nombre,['class' => 'form-control']) }}
          	 <br>         	
 	      
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 precios">
 				<label >Precio</label>
 				<br>
-				<input name="precio" value="{{$producto->precio}}" type="text">
+				<input name="precio" class="inicial" value="{{$producto->precio}}" type="text">
 				<br>
 				<label >Costo por transacción</label>
 				<br>
-				<input name="costo"   type="text">
+				<input name="transaccion" value="2.5" readonly  type="text">
 				<br>
 				<label for="">Comisión</label>
 				<br>
-				<input name="comision" value="2.5" type="text">
+				<input type="hidden" name="comision" class="comision" value="{{$producto->iva}}"  >
+				<label name="comision2" class="comision2" >{{$producto->iva}}</label>
 				<br>
 				<label for="">Precio final</label>
 				<br>
-				<input name="precio_final"  value="" type="text">
+				<input type="hidden" name="costo_unitario" class="costo_unitario" value="{{$producto->costo_unitario}}"  >
+				<label name="costo_unitario2" class="costo_unitario2" >{{$producto->costo_unitario}}</label>
+				
 				<br>				
 		         {{ Form::label('hora_inicio', 'hora a la que se comienza a preparar') }}
 		         <br>
-		         {{ Form::text('hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00')) }}
+		         {{ Form::text('hora_inicio', $producto->hora_inicio, array('placeholder'=>'09:00')) }}
 		    	<br/>
 		    
 		         {{ Form::label('hora_fin', 'hora a la que se deja de preparar') }}
 		         <br>
-		         {{ Form::text('hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00')) }}
+		         {{ Form::text('hora_fin', $producto->hora_fin, array('placeholder'=>'17:00')) }}
 				<br>
 				<br>
 				<input type="hidden" name="id" value="{{$producto->id}}">
@@ -60,7 +63,7 @@
 		{{Form::close()}}
 		</div>
      <div class="panel-footer clearfix rest">
-	  @include('Restaurante.menu')
+	
 	</div>     
 	</div>
 	</div>

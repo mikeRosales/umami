@@ -10,7 +10,7 @@
     <div class="panel panel-default">
      <div class="panel-heading"><h4>Pedidos</h4></div>     
      <div class="panel-footer clearfix">
-	  @include('Restaurante.menu')
+	
 	</div>     
 	</div>
 	</div>

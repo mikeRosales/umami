@@ -11,9 +11,22 @@
 }
 .admin{
 	background-color: #CC6C56;
+	color: #fff;
+}
+.navbar-admin {
+	background-color: #CC6C56;
+	border-color: #e7e7e7;
+	color: #fff;
+	z-index: 1000;
+	margin-bottom: -35px;
+	top: 0;
+	width: 100%;
+	position: fixed;
+	height: 1;
 }
 .rest{
 	background-color: #F8931D;
+	color: #fff;
 }
 .direccionar{
 	cursor: hand;
@@ -4868,7 +4881,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .navbar-anclas {
-	background-color: #EA661C;
+	background-color: #F8931D;
 	border-color: #e7e7e7;
 	color: #fff;
 	z-index: 1000;
@@ -4887,6 +4900,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 	width: 100%;
 	position: fixed;
 }
+
 .navbar-sedeco {
 	background-color: #662D90;
 	border-color: #e7e7e7;
@@ -6924,7 +6938,7 @@ button.close {
 	position: fixed;
 }
 .anclas {
-	background: #EE8549;
+	background: #F8931D;
 	position: fixed;
 }
 .sedeco {

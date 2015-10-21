@@ -1,6 +1,6 @@
 <?php
 
-class DetallesReservacion extends Eloquent
+class DetallesReservaciones extends Eloquent
 {
 	protected $table = "detalles_reservacion";
 }

@@ -3,36 +3,37 @@
 <html lang="en">
 <head>
 
-	<meta charset="UTF-8" http-equiv="refresh" content="10">
+	<meta charset="UTF-8" http-equiv="refresh" content="20">
 	<title>Hogar</title>
 </head>
 <body>
 	  <div class="container marg">
     <div class="panel panel-default">
-     @if($errors->has())
-   @foreach ($errors->all() as $error)
-      <div><small class="error">{{ $error }}</small></div>
-  @endforeach
-@endif
-@if(Session::has('success'))
-    <div class="alert-box">
-       <p> {{ Session::get('success') }}</p>
-    </div>
-@endif
+	
      <div class="panel-heading rest">{{ Session::get("nombre") }} Seccion:Hogar</div>
-
+	<h3>Visitas</h3>
+	<h5>Personas que han visto mi teléfono en la aplicación{{$restaurante->con_telefono}}</h5>
+	<br>
+	<h5>Personas que han visto mi dirección en la aplicación {{$restaurante->con_direccion}}</h5>
+	<br>
+	<br>
      @if(count($pedidos)>0)
     	
      		<table class="table table-bordered table-striped">
      		<h4 align="top"> Pedidos </h4>
      		<thead>
      			<th>Orden</th>
-     			<th rowspan="2">Cantidad</th>
+     			<th>Domicilio</th>
+     			<th>Caracteristicas</th>
+     			<th>Cantidad</th>
+
      			<th>Producto</th>
      			<th>Importe</th>
      			<th>Iva</th>
      			<th>Costo Unitario</th>
+     			
      			<th>Total</th>     	
+
      		</thead>
      
 		 @foreach($pedidos as $key => $value)
@@ -46,6 +47,8 @@
 		     		<tbody>
 				<tr>
 					<td rowspan="{{$a}}">{{$value->id}}</td>
+					<td rowspan="{{$a}}">{{$value->domicilioP}}</td>
+					<td rowspan="{{$a}}">{{$value->caracteristica}}</td>
 					@foreach($detalles as $key => $info)
 					
 					@if($info->id_pedido == $value->id)	
@@ -144,7 +147,7 @@
      	
  
      <div class="panel-footer clearfix rest">
-	  @include('Restaurante.menu')
+	  
 	</div>     
 	</div>
 	</div>

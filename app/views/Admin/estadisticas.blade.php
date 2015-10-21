@@ -37,7 +37,7 @@
      </tbody>
      </table>
      <div class="panel-footer clearfix admin">
-	  @include('Admin.menu')
+	
 	</div>     
 	</div>
 	</div>

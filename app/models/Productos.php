@@ -24,6 +24,16 @@ class Productos extends Eloquent
 		->get();
 		return $alimentos;
 	}
+	public function scopeCat($id)
+	{
+		$productos =DB::table('productos as Productos')
+		->where('Productos.id','=',$id)
+		->leftjoin('categorias as categoria',	function($join){
+				$join->on('Productos.id_categoria','=','categoria.id');
+		})
+		->select('categoria.nombre');
+		return $productos;
+	}
 	public function scopeMisP($alimentos, $id){
 		$alimentos =DB::table('productos as Productos')
 
@@ -121,10 +131,84 @@ class Productos extends Eloquent
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
 
-		->where('Restaurantes.validado','=','1');
+		->where('Restaurantes.validado','=','1')
+		->orderBy('Productos.id_categoria');
 
 	
 		
 		return $productos;
 	}
+	public function scopeProductos($productos, $hora){
+		$productos =DB::table('productos as Productos')
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+		})
+		->where('Restaurantes.validado','=',' 1')
+
+		->where('Productos.hora_inicio','<', $hora)
+
+		->where('Productos.hora_fin','>', $hora)
+
+		->select('*','Productos.nombre as nombreP','Productos.id as idP')
+		
+		
+		->get();
+		return $productos;
+	}
+		public function scopeBuscar($coincidencias, $texto, $hora){
+		$coincidencias =DB::table('productos as Productos')
+
+		->where('Productos.nombre','LIKE','%'.$texto.'%')
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+		})
+
+		->where('Restaurantes.validado','=',' 1')
+
+		->where('Productos.hora_inicio','<', $hora)
+
+		->where('Productos.hora_fin','>', $hora)
+
+
+				
+
+		->select('*','Productos.nombre as nombreP','Productos.id as idP');
+			
+		return $coincidencias;
+	}
+	public function scopeBuscarA($coincidencias, $texto, $hora){
+		$coincidencias =DB::table('productos as Productos')
+
+		->where('Productos.nombre','LIKE','%'.$texto.'%')
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+		})
+
+		->where('Restaurantes.validado','=',' 1')
+
+		->where('Productos.hora_inicio','<', $hora)
+
+		->where('Productos.hora_fin','>', $hora)
+		
+		->where('Productos.tipo','=', 'alimento')
+				
+
+		->select('*','Productos.nombre as nombreP','Productos.id as idP');
+			
+		return $coincidencias;
+	}
+	public function scopeRest(){
+		$productos =DB::table('productos')
+		
+		->select(DB::raw('id_restaurante, SUM(id_restaurante) as cantidad '))
+		
+		->groupBy('id_restaurante')
+		->orderBy('cantidad','DSC');
+	
+		return $productos;
+	}
+
 }
