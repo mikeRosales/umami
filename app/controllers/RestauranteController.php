@@ -191,7 +191,7 @@ class RestauranteController extends \BaseController {
 	{
 		$pedidos = Pedidos::pedidosCuatro(Auth::user()->id_restaurante);
 			$detalles = Pedidos::consulta()->get();
-		return View::make('Restaurante.noAtendidasx',compact('pedidos','detalles'));
+		return View::make('Restaurante.noAtendidas',compact('pedidos','detalles'));
 	}	
 		public function declinadas()
 	{
