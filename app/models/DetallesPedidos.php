@@ -29,5 +29,18 @@ class DetallesPedidos extends Eloquent
 	
 		return $productos;
 	}
+	public function scopeVistos3(){
+		$restaurantes = DB::table('pedidos')
+		->leftjoin('restaurantes as restaurantes',	function($join){
+							$join->on('pedidos.id_restaurante','=','restaurantes.id');
+					}) 
+		->select(DB::raw('SUM(pedidos.id) as cantidad '),'restaurantes.id','restaurantes.imagenR as imagenR','restaurantes.nombre')
+		
+		->groupBy('pedidos.id_restaurante');
+		
+	
+		return $restaurantes;
+	}
+
 
 }

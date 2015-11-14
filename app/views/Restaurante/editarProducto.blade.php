@@ -24,7 +24,8 @@
 			  <label>Categoria  </label>
 	          {{ Form::select('categoria' ,(['0' => $cat->nombre] + $categorias),$cat->nombre,['class' => 'form-control']) }}
          	 <br>         	
-	      
+	      <?php $valor = ($producto->precio * .15);
+	      		$precioF = ($producto->precio * .15)+2.5+$producto->precio;?>
 			</div>
 			<div class="col-md-3 precios">
 				<label >Precio</label>
@@ -37,13 +38,13 @@
 				<br>
 				<label for="">Comisión</label>
 				<br>
-				<input type="hidden" name="comision" class="comision" value="{{$producto->iva}}"  >
-				<label name="comision2" class="comision2" >{{$producto->iva}}</label>
+				<input type="hidden" name="comision" class="comision" value="{{$valor}}"  >
+				<label name="comision2" class="comision2" >{{$valor}}</label>
 				<br>
 				<label for="">Precio final</label>
 				<br>
-				<input type="hidden" name="costo_unitario" class="costo_unitario" value="{{$producto->costo_unitario}}"  >
-				<label name="costo_unitario2" class="costo_unitario2" >{{$producto->costo_unitario}}</label>
+				<input type="hidden" name="costo_unitario" class="costo_unitario" value="{{$precioF}}"  >
+				<label name="costo_unitario2" class="costo_unitario2" >{{$precioF}}</label>
 				
 				<br>				
 		         {{ Form::label('hora_inicio', 'hora a la que se comienza a preparar') }}

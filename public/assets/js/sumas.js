@@ -1,5 +1,5 @@
  $(document).ready(function(){
-
+ 		
 		$(".inicial").on("keyup", function() {
 		 	var valor = $(this).val();
 

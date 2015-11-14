@@ -69,23 +69,20 @@ class Pedidos extends Eloquent
 		->leftjoin('restaurantes as restaurantes',	function($join){
 							$join->on('restaurantes.id','=','pedidos.id_restaurante');
 					}) 		
-		->select('*','restaurantes.nombre')
+		->select('*','restaurantes.nombre','pedidos.id as id')
 		->get();
 		return $pedidos;
 	}
 	public function scopePagadas($pagadas,$id){
 		$pagadas = DB::table('pedidos')
 			->where('estatus','=','pagada')							
-			->where('id_restaurante','=', $id)
-			->leftjoin('detalles_pedidos as detalles',	function($join){
-							$join->on('detalles.id_pedido','=','pedidos.id');
-					});
+			->where('id_restaurante','=', $id); 
+		
 		return $pagadas;
 	}
-		public function scopePagadasAdmin($pagadas,$id){
+		public function scopePagadasAdmin($pagadas){
 		$pagadas = DB::table('pedidos')
-			->where('estatus','=','pagada')							
-			->where('id_restaurante','=', $id)
+			->where('estatus','=','pagada')										
 			->leftjoin('detalles_pedidos as detalles',	function($join){
 							$join->on('detalles.id_pedido','=','pedidos.id');
 					});
@@ -203,6 +200,88 @@ class Pedidos extends Eloquent
 	
 		return $productos;
 	}
+		public function scopeEstadisticas($restaurantes)
+	{
+		$restaurantes =DB::table('pedidos as Pedidos')
+		
+		->where('Pedidos.estatus','LIKE','pagada')
 
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+					$join->on('Restaurantes.id','=','Pedidos.id_restaurante');
+		})
+
+				
+		->select(DB::raw('Pedidos.id_restaurante'),
+			  DB::raw('SUM(Pedidos.total) as total'),
+
+			 'Restaurantes.nombre',			  
+			  DB::raw('AVG(Pedidos.total) as promedio'),
+			  'Restaurantes.pagadas as ordenes',
+			  'Restaurantes.confirmadas as reservaciones',
+			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
+			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF,Restaurantes.cuenta'))
+	
+
+		->groupBy('Pedidos.id_restaurante');
+		
+		
+		return $restaurantes;
+	}
+			public function scopeEstadisticasDos($id)
+	{
+		$restaurantes =DB::table('pedidos as Pedidos')
+		
+		->where('Pedidos.estatus','LIKE','pagada')
+		->where('Pedidos.id_restaurante','=',$id)
+
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+					$join->on('Restaurantes.id','=','Pedidos.id_restaurante');
+		})
+
+				
+		->select(DB::raw('Pedidos.id_restaurante'),
+			  DB::raw('SUM(Pedidos.total) as total'),
+
+			 'Restaurantes.nombre',			  
+			  DB::raw('AVG(Pedidos.total) as promedio'),
+			  'Restaurantes.pagadas as ordenes',
+			  'Restaurantes.confirmadas as reservaciones',
+			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
+			  DB::raw('(Pedidos.total * .15) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (Pedidos.total * .15) - (Restaurantes.confirmadas * 5) - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF,Restaurantes.cuenta'))
+	
+
+		->groupBy('Pedidos.id_restaurante');
+		
+		
+		return $restaurantes;
+	}
+
+	public function scopeCantidad()
+	{
+				$restaurantes =DB::table('pedidos as Pedidos')
+		
+				->where('Pedidos.estatus','LIKE','pagada')
+
+
+					->leftjoin('detalles_pedidos as Detalles',	function($join){
+								$join->on('Detalles.id_pedido','=','Pedidos.id');
+					})
+
+				->select(DB::raw('SUM(Detalles.cantidad)as cantidad'),'Pedidos.id_restaurante')
+					->groupBy('Pedidos.id_restaurante');
+					return $restaurantes;
+
+	}
+	public function scopeEfectivo($id)
+	{
+			$pedidos =DB::table('pedidos as Pedidos')
+
+				->where('Pedidos.estatus','LIKE','pagada')
+				
+	}
 
 }

@@ -13,7 +13,7 @@
      	<tr><td colspan="2">Diario</td></tr>
      	<tr><td>Ventas totales</td><td>${{$VT}}</td></tr>
      	<tr><td>Importe</td><td>${{$VT}}</td></tr>
-     	<tr><td>IVA por pagar</td><td>$15</td></tr>
+     	
      	<tr><td>No. de ordenes</td><td>{{$NuOrdenes}}</td>	</tr>
      	<tr><td>Costo Maximo de ordenes</td><td>{{$OM}}</td>	</tr>
      	<tr><td>Costo Minino de ordenes</td><td>{{$MO}}</td>	</tr>
@@ -22,7 +22,7 @@
 		<tr><td colspan="2">Semanal</td>	</tr>
      	    <tr><td>Ventas totales</td><td>${{$VT}}</td></tr>
           <tr><td>Importe</td><td>${{$VT}}</td></tr>
-          <tr><td>IVA por pagar</td><td>$15</td></tr>
+          
           <tr><td>No. de ordenes</td><td>{{$NuOrdenes}}</td>     </tr>
           <tr><td>Costo Maximo de ordenes</td><td>{{$OM}}</td>   </tr>
           <tr><td>Costo Minino de ordenes</td><td>{{$MO}}</td>   </tr>
@@ -31,7 +31,7 @@
      	<tr><td colspan="2">Mensual</td>	</tr>
      	    <tr><td>Ventas totales</td><td>${{$VT}}</td></tr>
           <tr><td>Importe</td><td>${{$VT}}</td></tr>
-          <tr><td>IVA por pagar</td><td>$15</td></tr>
+          
           <tr><td>No. de ordenes</td><td>{{$NuOrdenes}}</td>     </tr>
           <tr><td>Costo Maximo de ordenes</td><td>{{$OM}}</td>   </tr>
           <tr><td>Costo Minino de ordenes</td><td>{{$MO}}</td>   </tr>

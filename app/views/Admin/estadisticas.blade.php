@@ -12,6 +12,9 @@
      <div class="panel-heading admin"><h4>Pedidos</h4></div>   
    
      <br>
+
+     @foreach($restaurantes as $key => $value)
+           <br>
      <table class="table table-bordered">
      <thead>
      	<th>Nombre</th>
@@ -28,14 +31,25 @@
      <tbody>
  
      <tr>
-     
-     
+          <td>{{$value->nombre}}</td>
+          @foreach($cantidad as $key => $cant)
+               @if($cant->id_restaurante == $value->id_restaurante)
+               <td>{{$cant->cantidad}}</td>
+               @endif
+          @endforeach
+          <td>{{$value->promedio}}</td>
+          <td>{{$value->ordenes}}</td>
+     	<td>{{$value->reservaciones}}</td>
+          <td>{{$value->consultas}}</td>
+          <td>{{$value->comision}}</td>
+          <td>{{$value->totalF}}</td>
+          <td>{{$value->cuenta}}</td>
           
-     	
      </tr>
 
      </tbody>
      </table>
+     @endforeach
      <div class="panel-footer clearfix admin">
 	
 	</div>     

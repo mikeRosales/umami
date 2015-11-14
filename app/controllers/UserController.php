@@ -47,8 +47,11 @@ class UserController extends \BaseController {
 		$pedido->id_restaurante = $restaurante;
 		$pedido->id_usuario = $usuario{0}->id;
 		$pedido->estatus = "pendiente";
+        $pedido->tipo = 'pendiente';
 		$pedido->save();
-		
+		$restaurantes = Restaurantes::find($restaurante)->first();    
+        $restaurantes->contador = $restaurantes->contador + 1 ;
+        $restaurantes->save();
 		for ($x = 0; $x < count($productos); $x++) {
 			$detalles = new DetallesPedidos;
 			$detalles->id_pedido = $pedido->id;
@@ -92,6 +95,58 @@ class UserController extends \BaseController {
 			
 
 	}
+    public function paymentR(){
+        Conekta::setApiKey("key_U7qsxjuAzRny1F5ogKXFyw");
+        Conekta::setLocale('ES');
+        $reservacion = Reservaciones::find(Input::get('id'));
+        $card = Input::get('conektaTokenId');
+        $monto = 5 * 100;
+
+        $restaurantes = Restaurantes::find($reservacion->id_restaurante)->first();              
+        $user =  $usuario = User::where('id','=',$reservacion->id_usuario)->first();
+     
+      
+        try {
+        
+            $charge = Conekta_Charge::create(array(
+            
+            "description" => "Conekta tastyfoods",
+            "amount" => $monto,
+            "currency" => "MXN",
+           "reference_id"=> "orden_de_id_interno",
+           "card" => $card,
+           'details'=> array(
+                'name'=> $user->nombre,                
+                'email'=> $user->username,
+                'customer'=> array(
+                  'corporation_name'=> 'Conekta Inc.',
+                  'logged_in'=> true                  
+                    ),
+                    'line_items'=> array(
+                      array(
+                        'name'=> 'cobro de reservacion',
+                        'description'=> 'Conekta tastyfoods',
+                        'unit_price'=> $monto,
+                        'quantity'=> 1,
+                        'sku'=> 'cohb_s1',
+                        'type'=> 'food'
+                      )
+                    )
+                )
+            ));
+        } catch (Conekta_Error $e) {
+
+           return Response::json($e->getMessage());
+
+        }
+            $reservacion->estatus = 'pagada';
+            $reservacion->save();
+            $restaurantes->confirmadas = $restaurantes->confirmadas + 1 ;
+            $restaurantes->save();
+       
+            return Response::json($charge->status);
+        
+    }
 	public function factura(){
 		$usuario = User::where('username','=',Input::get('username'))->first();
 		$factura = new Facturas;
@@ -137,25 +192,55 @@ class UserController extends \BaseController {
 	}
 
 	public function payment() {
-		$pedido = Pedidos::find(Input::get('id'));
-        $user =     $usuario = User::where('id','=',$pedido->id_usuario)->first();
+       
         Conekta::setApiKey("key_U7qsxjuAzRny1F5ogKXFyw");
-      	Conekta::setLocale('es');
+        Conekta::setLocale('ES');
+		$pedido = Pedidos::find(Input::get('id'));
+        $card = Input::get('conektaTokenId');
+        $monto = $pedido->total;
+
+        $restaurantes = Restaurantes::find($pedido->id_restaurante)->first();              
+        $user =     $usuario = User::where('id','=',$pedido->id_usuario)->first();
+     
+      
         try {
+        
             $charge = Conekta_Charge::create(array(
-            "amount" => $pedido->total,
+            
+            "description" => "Conekta tastyfoods",
+            "amount" => $monto * 100,
             "currency" => "MXN",
-            "description" => "Cobro por pedido de comida",
-            "reference_id"=> "orden_de_id_interno",
-            "card" => Input::get('conektaTokenId') //"tok_a4Ff0dD2xYZZq82d9"
+           "reference_id"=> "orden_de_id_interno",
+           "card" => $card,
+           'details'=> array(
+                'name'=> $user->nombre,                
+                'email'=> $user->username,
+                'customer'=> array(
+                  'corporation_name'=> 'Conekta Inc.',
+                  'logged_in'=> true                  
+                    ),
+                    'line_items'=> array(
+                      array(
+                        'name'=> 'pedido de comida',
+                        'description'=> 'Conekta tastyfoods',
+                        'unit_price'=> $monto,
+                        'quantity'=> 1,
+                        'sku'=> 'cohb_s1',
+                        'type'=> 'food'
+                      )
+                    )
+                )
             ));
         } catch (Conekta_Error $e) {
 
            return Response::json($e->getMessage());
 
         }
-             $pedido->estatus = 'pagado';
+            $pedido->estatus = 'pagada';
+            $pedido->tipo = 'tarjeta';
             $pedido->save();
+            $restaurantes->pagadas = $restaurantes->pagadas + 1 ;
+            $restaurantes->save();
             if($user->reg_id != ""){
 
 
@@ -465,6 +550,16 @@ class UserController extends \BaseController {
         $usuario = User::where('username','=',Input::get('username'))->first();
         $usuario->estatus = 0;
         $usuario->save();
+        return Response::json('success');
+    }
+    public function efectivo(){
+        $pedido = Pedidos::find(Input::get('id'));
+        $pedido->estatus = 'pagada';
+        $pedido->tipo = 'efectivo';
+        $pedido->save();
+        $restaurantes = Restaurantes::find($pedido->id_restaurante)->first();
+        $restaurantes->pagadas = $restaurantes->pagadas + 1 ;
+        $restaurantes->save();
         return Response::json('success');
     }
 }

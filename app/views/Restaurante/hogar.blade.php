@@ -16,6 +16,7 @@
 	<br>
 	<h5>Personas que han visto mi dirección en la aplicación {{$restaurante->con_direccion}}</h5>
 	<br>
+
 	<br>
      @if(count($pedidos)>0)
     	

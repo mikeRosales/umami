@@ -21,7 +21,8 @@
                     <th>Estatus</th> 
                     <th>Nombre</th>      
                     <th>Cantidad</th>
-                    <th>Producto</th>                                                
+                    <th>Producto</th> 
+                    <th>Enviar con repartidores externos</th>                                               
                </thead>
      
            @foreach($pedidos as $key => $value)
@@ -61,7 +62,7 @@
                           @endforeach
             
                          {{ Form::hidden('idpedido',$value->id)}}
-                     
+                        <td><input type="checkbox"></td>
                     </tr>
                     
 

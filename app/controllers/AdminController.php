@@ -43,7 +43,7 @@ public function publicidad()
 	public function informes()
 	{
 		$id= Auth::user()->id_restaurante;
-		$pedidos=Pedidos::pagadas($id)->count();
+		$pedidos=Pedidos::pagadasAdmin()->count();
 	
 
 		
@@ -52,29 +52,34 @@ public function publicidad()
  		}
 
  		else{
-		$VT = Pedidos::pagadasAdmin($id)->sum('total');
+		$VT = Pedidos::pagadasAdmin()->sum('total');
 				
-		$IVA = Pedidos::pagadasAdmin($id)->sum('iva');
-		$IMPORTE = $VT-$IVA;
-		$NuOrdenes = Pedidos::pagadasAdmin($id)->count();
+		
+		
+		$NuOrdenes = Pedidos::pagadasAdmin()->count();
 
-		$OM = Pedidos::pagadasAdmin($id)->max('total');
-		$MO = Pedidos::pagadasAdmin($id)->min('total');
-		$OP = Pedidos::pagadasAdmin($id)->avg('total');
+		$OM = Pedidos::pagadasAdmin()->max('total');
+		$MO = Pedidos::pagadasAdmin()->min('total');
+		$OP = Pedidos::pagadasAdmin()->avg('total');
 	
-		return View::make('Admin.informes',compact('VT','IVA','IMPORTE','NuOrdenes','OM','MO','OP'));
+		return View::make('Admin.informes',compact('VT','IMPORTE','NuOrdenes','OM','MO','OP'));
 		}
 	}
 	public function usuarios()
 	{
-		$usuarios = Usuarios::where('id_nivel', '=', 1)->get();
+		$usuarios = Usuarios::where('id_nivel', '!=', 1)->get();
 		
 		return View::make('Admin.usuarios',compact('usuarios'));
 	}
 	public function estadisticas()
 	{
-		$restaurantes = Restaurantes::estadisticas()->get(); 
-		return View::make('Admin.estadisticas');
+		$restaurantes = Pedidos::estadisticas()->get(); 
+		$nuevafecha = date('Y-m-d', strtotime('+3 day')) ;
+		$cantidad = Pedidos::cantidad()->get();
+				
+		
+	
+		return View::make('Admin.estadisticas',compact('restaurantes','cantidad','nuevafecha'));
 	}
 	public function candidatos(){
 		$candidatos = Restaurantes::where('validado','=','0')->get();
@@ -179,8 +184,8 @@ public function publicidad()
 	public function precios()
 	{
 		$alimentos=Productos::where('tipo','=','alimento')->orderBy('costo_unitario','DSC')->get();
-
-		return View::make('Admin.alimentos',compact('alimentos'));
+		$mensaje = 0;
+		return View::make('Admin.alimentos',compact('alimentos','mensaje'));
 	}
 	public function porcategoria()
 	{
@@ -208,8 +213,8 @@ public function publicidad()
 	public function precios2()
 	{
 		$bebidas=Productos::where('tipo','=','bebida')->orderBy('costo_unitario','DSC')->get();
-		
-		return View::make('Admin.bebidas',compact('bebidas'));
+		$mensaje = 0;
+		return View::make('Admin.bebidas',compact('bebidas','mensaje'));
 	}
 	public function porcategoria2()
 	{
@@ -220,10 +225,9 @@ public function publicidad()
 	}
 		public function vistos3()
 	{
-		$bebidas=DetallesPedidos::vistos2()->get();
-
+		$restaurantes=DetallesPedidos::vistos3()->get();
 		
-		return View::make('Admin.bebidas',compact('bebidas'));
+		return View::make('Admin.restaurantes',compact('restaurantes'));
 	}
 		public function ordenes()
 	{

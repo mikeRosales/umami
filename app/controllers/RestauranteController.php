@@ -46,13 +46,14 @@ class RestauranteController extends \BaseController {
 	{
 		$reservacion = Reservaciones::find(Input::get('idreservacion'));
 		$user =    	$usuario = User::where('id','=',$reservacion->id_usuario)->first();
-	
+		$restaurantes = Restaurantes::find($reservacion->id_restaurante)->first();
 		if(Input::has('Confirmar'))
 		{
 
 			$reservacion->estatus = 'confirmada';
 			$reservacion->save();
-	
+			$restaurantes->confirmadas = $restaurantes->confirmadas + 1;
+			$restaurantes->save();
 			return Redirect::to('/')->with('success','reservacion Aceptada Con Exito');
 
 		}
@@ -221,7 +222,7 @@ class RestauranteController extends \BaseController {
 		$MO = Pedidos::pagadas($id)->min('total');
 		$OP = Pedidos::pagadas($id)->avg('total');
 	
-		return View::make('Restaurante.informes',compact('VT','IVA','IMPORTE','NuOrdenes','OM','MO','OP'));
+		return View::make('Restaurante.informes',compact('VT','IMPORTE','NuOrdenes','OM','MO','OP'));
 		}
 	}
 	public function datos()
@@ -233,30 +234,18 @@ class RestauranteController extends \BaseController {
 	public function estadisticas()
 	{
 		
-			$id= Auth::user()->id_restaurante;
+		$id= Auth::user()->id_restaurante;
 		$pedidos=Pedidos::pagadas($id)->count();
-	
-
+		$estadisticas = Estadisticas::where('id_restaurante', '=', $id)->get();
 		$restaurante = Restaurantes::find(Auth::user()->id_restaurante);
-		$consultas = $restaurante->con_telefono + $restaurante->con_direccion;
 		if($pedidos==0){
  			return View::make('Restaurante.estadisticas2');	
  		}
-
  		else{		
- 		$cuenta = $restaurante->cuenta;
- 		$cantidad = Pedidos::pagadas($id)->sum('cantidad');		
-		$NuOrdenes = Pedidos::pagadas($id)->count();
-		$Reservaciones = Reservaciones::confirmadas($id)->count();
-		$OP = Pedidos::pagadas($id)->avg('total');
- 		$total = Pedidos::pagadas($id)->sum('total');		
- 		$totalComision = $total * .15;
- 		$totalReservaciones = $Reservaciones * 5;
- 		$totalDepositar = $total - $totalComision - $totalReservaciones - $consultas;
+ 			
+ 			$cantidad = Pedidos::cantidad()->get();
  		
- 
-	
-		return View::make('Restaurante.estadisticas',compact('cantidad','NuOrdenes','Reservaciones','OP','consultas','totalComision','totalDepositar','cuenta'));
+		return View::make('Restaurante.estadisticas',compact('estadisticas','cantidad','restaurante'));
 		}
 	}
 	public function guardarTarjeta()
@@ -325,6 +314,19 @@ class RestauranteController extends \BaseController {
 		$factura->save();
 		return Redirect::to('restaurante/facturas')->with('message','Factura guardada con éxito');
 	}
+	public function facturacion()
+	{
 
+			$factura = New Facturas;
+			$factura->nombreUsuario = Input::get('nombre');
+			$factura->Domicilio = Input::get('domicilio');
+			$factura->rfc = Input::get('RFC');
+			$factura->correo = Input::get('Correo');
+												
+			$factura->save();
+			return Redirect::to('restaurante/hogar')->with('message','factura guardada con éxito');
+			
+				
+	}
 
 }

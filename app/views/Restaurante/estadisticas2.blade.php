@@ -1,3 +1,4 @@
+
 @include('Restaurante.recursos')
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +19,7 @@
      	<th>Platillos Vendidos</th>
      	<th>Costo Promedio</th>
      	<th>No. ordenes</th>
-          <th>Reservaciones</th>
+          
           <th>Consultas</th>
           <th>Comisión</th>          
           <th>Total a depositar</th> 

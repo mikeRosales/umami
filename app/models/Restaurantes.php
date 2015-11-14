@@ -22,15 +22,5 @@ class Restaurantes extends Eloquent
 		return $coincidencias;
 	}
 
-	public function scopeEstadisticas()
-	{
-		$restaurantes =DB::table('restaurantes as Restaurantes')
-		->leftjoin('detalles_pedidos as detalles',	function($join){
-					$join->on('detalles.id_pedido','=','pedidos.id');
-		})
-		->leftjoin('detalles_pedidos as detalles',	function($join){
-					$join->on('detalles.id_pedido','=','pedidos.id');
-		})
-		;
-	}
+
 }
