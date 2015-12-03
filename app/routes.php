@@ -114,7 +114,8 @@ Route::get('/users/getEnvios','RepartidorController@getEnvios');
 Route::get('/users/getEnvio','RepartidorController@getEnvio');
 Route::post('/users/enviarA','RepartidorController@enviarA');
 Route::post('/users/marcarE','RepartidorController@marcarE');
-
+Route::post('/users/miPedido','UserController@miPedido');
+Route::post('/users/entregado','UserController@entregado');
 
 Route::group(array('before' => array('auth', 'restaurante')), function()
 {

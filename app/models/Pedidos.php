@@ -280,7 +280,7 @@ class Pedidos extends Eloquent
 	{
 			$pedidos =DB::table('pedidos as Pedidos')
 
-				->where('Pedidos.estatus','LIKE','pagada')
+				->where('Pedidos.estatus','LIKE','pagada');
 				
 	}
 

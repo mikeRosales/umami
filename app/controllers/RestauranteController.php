@@ -236,7 +236,8 @@ class RestauranteController extends \BaseController {
 		
 		$id= Auth::user()->id_restaurante;
 		$pedidos=Pedidos::pagadas($id)->count();
-		$estadisticas = Estadisticas::where('id_restaurante', '=', $id)->get();
+		$credito = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','tarjeta')->get();
+		$efectivo = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','efectivo')->get();
 		$restaurante = Restaurantes::find(Auth::user()->id_restaurante);
 		if($pedidos==0){
  			return View::make('Restaurante.estadisticas2');	
@@ -245,7 +246,7 @@ class RestauranteController extends \BaseController {
  			
  			$cantidad = Pedidos::cantidad()->get();
  		
-		return View::make('Restaurante.estadisticas',compact('estadisticas','cantidad','restaurante'));
+		return View::make('Restaurante.estadisticas',compact('estadisticas','cantidad','restaurante','credito','efectivo'));
 		}
 	}
 	public function guardarTarjeta()

@@ -497,7 +497,7 @@ class UserController extends \BaseController {
     }
     public function borrarP()
     {
-        $pedido = Pedidos::where('id','=',Input::get('id'))->fisrt();
+        $pedido = Pedidos::where('id','=',Input::get('id'))->first();
         $pedido->estatus = 'noAtendida';
         $pedido->save();
         return Response::json('success');

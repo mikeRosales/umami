@@ -76,10 +76,11 @@ public function publicidad()
 		$restaurantes = Pedidos::estadisticas()->get(); 
 		$nuevafecha = date('Y-m-d', strtotime('+3 day')) ;
 		$cantidad = Pedidos::cantidad()->get();
-				
+		$credito = Estadisticas::where('tipo', '=','tarjeta')->get();
+		$efectivo = Estadisticas::where('tipo', '=','efectivo')->get();		
 		
 	
-		return View::make('Admin.estadisticas',compact('restaurantes','cantidad','nuevafecha'));
+		return View::make('Admin.estadisticas',compact('restaurantes','cantidad','nuevafecha','efectivo','credito'));
 	}
 	public function candidatos(){
 		$candidatos = Restaurantes::where('validado','=','0')->get();

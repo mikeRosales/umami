@@ -30,7 +30,7 @@
 							</div>
 							<br/>
 							<div class="col-md-2">
-								{{$value->precio}}$
+								{{$value->costo_unitario}}$
 								<br> 
 								{{Form::open(array('url'=>'/restaurante/editar', 'id' => $value->id))}}
 								<label class="glyphicon glyphicon-edit direccionar">Editar</label>

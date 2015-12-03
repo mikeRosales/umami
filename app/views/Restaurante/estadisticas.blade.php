@@ -12,8 +12,8 @@
      <div class="panel-heading rest"><h4>{{ Session::get("nombre") }} Seccion:Pedidos</h4></div>   
    
      <br>
-   @foreach($estadisticas as $key => $value)
-        
+   @foreach($credito as $key => $val)
+             <h4>tarjeta</h4>
                 <br>
           <table class="table table-bordered">
           <thead>
@@ -32,11 +32,44 @@
       
           <tr>
                <td>{{$restaurante->nombre}}</td>
-               @foreach($cantidad as $key => $cant)
-                    @if($cant->id_restaurante == $value->id_restaurante)
-                    <td>{{$cant->cantidad}}</td>
-                    @endif
-               @endforeach
+                   <td>{{$val->platillos_vendidos}}</td>
+               <td>{{$val->costo_promedio}}</td>
+               <td>{{$val->no_ordenes}}</td>
+               
+               <td>{{$val->consultas}}</td>
+               <td>{{$val->comision}}</td>
+               <td>{{$val->total}}</td>
+               <td>{{$restaurante->cuenta}}</td>
+               <td>{{$val->fecha}}</td>
+          </tr>
+
+          </tbody>
+          </table>
+          
+     @endforeach
+        @foreach($efectivo as $key => $value)
+          <h4>efectivo</h4>
+                <br>
+          <table class="table table-bordered">
+          <thead>
+               <th>Nombre</th>
+               <th>Platillos Vendidos</th>
+               <th>Costo Promedio</th>
+               <th>No. ordenes</th>               
+               <th>Consultas</th>
+               <th>Comisión</th>          
+               <th>Total a depositar</th> 
+               <th>Numero de cuenta</th>
+               <th>Fecha a pagar</th>
+               <th></th>
+          </thead>
+          <tbody>
+      
+          <tr>
+               <td>{{$restaurante->nombre}}</td>
+           
+                    <td>{{$value->platillos_vendidos}}</td>
+              
                <td>{{$value->costo_promedio}}</td>
                <td>{{$value->no_ordenes}}</td>
                

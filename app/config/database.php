@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'umami_db',
+			'database'  => 'tastyfoo_database',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
